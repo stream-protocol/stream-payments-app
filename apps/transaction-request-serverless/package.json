@@ -1,0 +1,53 @@
+{
+    "name": "transaction-request-serverless",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "main": "handler.js",
+    "workspaces": {
+        "nohoist": [
+            "**"
+        ]
+    },
+    "type": "module",
+    "scripts": {
+        "dev": "NODE_ENV=development sls offline",
+        "test": "jest",
+        "test:integration": "jest integration",
+        "lint": "eslint .",
+        "offline": "NODE_ENV=development serverless offline start --stage dev",
+        "deploy:production": "serverless deploy --stage production --config serverless.yml",
+        "deploy:staging": "serverless deploy --stage staging --config serverless.yml"
+    },
+    "keywords": [],
+    "author": "@solana_labs",
+    "license": "ISC",
+    "dependencies": {
+        "@sentry/serverless": "^7.51.2",
+        "@solana/spl-token": "^0.3.7",
+        "@solana/web3.js": "^1.77.3",
+        "aws-lambda": "^1.0.7",
+        "axios": "^1.3.4",
+        "serverless-prune-plugin": "^2.0.2",
+        "yup": "1.2.0"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.101",
+        "@types/jest": "^29.5.1",
+        "@types/node": "^18.16.1",
+        "esbuild": "^0.17.18",
+        "eslint-config-custom": "*",
+        "jest": "^27.0.0",
+        "jest-mock-extended": "2.0.4",
+        "serverless": "^3.21.0",
+        "serverless-esbuild": "^1.43.1",
+        "serverless-offline": "^12.0.4",
+        "serverless-plugin-common-excludes": "^4.0.0",
+        "serverless-plugin-include-dependencies": "^5.1.0",
+        "serverless-plugin-optimize": "4.2.1-rc.1",
+        "serverless-plugin-typescript": "^2.1.5",
+        "serverless-prune-versions": "^1.0.4",
+        "ts-jest": "^27.0.0",
+        "typescript": "^5.0.3"
+    }
+}

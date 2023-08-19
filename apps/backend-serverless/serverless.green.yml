@@ -1,0 +1,84 @@
+service: backend-serverless-green
+frameworkVersion: '3'
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    SHOPIFY_SECRET_KEY: ${env:SHOPIFY_SECRET_KEY}
+    SHOPIFY_CLIENT_ID: ${env:SHOPIFY_CLIENT_ID}
+    BACKEND_URL: ${env:BACKEND_URL}
+    MERCHANT_UI_URL: ${env:MERCHANT_UI_URL}
+    DATABASE_URL: ${env:DATABASE_URL}
+    PAYMENT_UI_URL: ${env:PAYMENT_UI_URL}
+    TRANSACTION_REQUEST_SERVER_URL: ${env:TRANSACTION_REQUEST_SERVER_URL}
+    TRM_API_KEY: ${env:TRM_API_KEY}
+    JWT_SECRET_KEY: ${env:JWT_SECRET_KEY}
+    SENTRY_DSN: ${env:SENTRY_DSN}
+    SENTRY_RELEASE: ${env:SENTRY_RELEASE}
+    COIN_GECKO_API_KEY: ${env:COIN_GECKO_API_KEY}
+package:
+  patterns:
+    - 'node_modules/.prisma/**'
+    - '!node_modules/.prisma/client/libquery_engine-*'
+    - 'node_modules/.prisma/client/libquery_engine-rhel-openssl-1.0.x.so.node'
+    - 'node_modules/.prisma/client/libquery_engine-linux-arm64-*'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/**'
+functions:
+  payment:
+    handler: src/handlers/shopify-handlers/payment.payment
+    events:
+      - httpApi:
+          path: /payment
+          method: post
+  refund:
+    handler: src/handlers/shopify-handlers/refund.refund
+    events:
+      - httpApi:
+          path: /refund
+          method: post
+  customers-data-request:
+    handler: src/handlers/webhooks/gdpr/customers-data-request.customersDataRequest
+    events:
+      - httpApi:
+          path: /customers/data_request
+          method: post
+  customers-redact:
+    handler: src/handlers/webhooks/gdpr/customers-redact.customersRedact
+    events:
+      - httpApi:
+          path: /customers/redact
+          method: post
+  shop-redact:
+    handler: src/handlers/webhooks/gdpr/shop-redact.shopRedact
+    events:
+      - httpApi:
+          path: /shop/redact
+          method: post
+  error-green:
+    handler: src/handlers/testing/error.error
+    events:
+      - httpApi:
+          path: /error
+          method: get
+
+plugins:
+  - serverless-plugin-optimize
+  - serverless-plugin-typescript
+  - serverless-prune-plugin
+  - serverless-prune-versions
+  - serverless-step-functions
+  - serverless-iam-roles-per-function
+  - serverless-offline
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+
+custom:
+  serverless-offline:
+    httpPort: 4006
+    lambdaPort: 4007
+  prune:
+    automatic: true
+    includeLayers: true
+    number: 3
