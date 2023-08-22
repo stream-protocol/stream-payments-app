@@ -17,7 +17,7 @@ import { twMerge } from 'tailwind-merge';
 import { DefaultLayoutNavigationExternalLink } from './DefaultLayoutNavigationExternalLink';
 import { DefaultLayoutNavigationLink } from './DefaultLayoutNavigationLink';
 import { RefundCount } from './RefundCount';
-import { StreamPayMark } from './StreamPayMark';
+import { SolanaPayMark } from './SolanaPayMark';
 import { Flag } from './icons/Flag';
 import { Folder } from './icons/Folder';
 import { ReceiptLong } from './icons/ReceiptLong';
@@ -80,7 +80,7 @@ export function DefaultLayoutNavigation(props: Props) {
                 <NavigationMenu.Item>
                     <NavigationMenu.Link asChild>
                         <Link href="/" className="flex flex-row space-x-2">
-                            <StreamPayMark className="h-7" />
+                            <SolanaPayMark className="h-7" />
                             <EnvLabel />
                         </Link>
                     </NavigationMenu.Link>
@@ -108,13 +108,12 @@ export function DefaultLayoutNavigation(props: Props) {
                                     text="Refunds"
                                     renderInRhs={<RefundCount refundCount={refundCount} />}
                                 />
-                                {process.env.NEXT_PUBLIC_FEATURE_FLAG == 'true' && (
-                                    <DefaultLayoutNavigationLink
-                                        href="/loyalty"
-                                        icon={<AiOutlineCrown />}
-                                        text="Loyalty"
-                                    />
-                                )}
+                                <DefaultLayoutNavigationLink
+                                    href="/loyalty"
+                                    icon={<AiOutlineCrown />}
+                                    text="Loyalty"
+                                    disabled={process.env.NEXT_PUBLIC_FEATURE_FLAG == 'true'}
+                                />
                                 <DefaultLayoutNavigationLink href="/merchant" icon={<Store />} text="Merchant" />
                                 <DefaultLayoutNavigationLink href="/support" icon={<Support />} text="Support" />
                             </div>
@@ -145,7 +144,7 @@ export function DefaultLayoutNavigation(props: Props) {
                     text="Privacy Policy"
                 />
                 <DefaultLayoutNavigationExternalLink
-                    href="https://docs.streampayments.app"
+                    href="https://shopifydocs.streampayments.app"
                     icon={<Folder />}
                     text="Documentation"
                 />
