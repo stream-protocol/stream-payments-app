@@ -37,7 +37,7 @@ function getItemTitle(item: RemainingSetupItem) {
         case RemainingSetupItem.AddWallet:
             return 'Add a wallet';
         case RemainingSetupItem.VerifyBusiness:
-            return 'Verify your business';
+            return 'Verify your business;
     }
 }
 
@@ -121,12 +121,12 @@ export function FinishAccountSetupPrompt(props: Props) {
                         'space-y-2',
                         'flex-col',
                         'items-center',
-                        props.className,
+                        props.className
                     )}
                 >
                     <div className="font-semibold text-black">🎉 Congrats, StreamPay is now live!</div>
                     <div className="text-black">
-                        Your store now accepts Stream Token, Solana and USDC payments. Please enable payments in your Shopify settings
+                        Your store now accepts Solana and USDC payments. Please enable payments in your Shopify settings
                     </div>
                     <a href={merchantInfo.data.completedRedirect}>
                         <Primary
@@ -148,7 +148,7 @@ export function FinishAccountSetupPrompt(props: Props) {
             <div className="text-black font-semibold text-lg">Finish setting up your account:</div>
             {STEPS.map((step, i) => (
                 <FinishAccountSetupPromptListItem
-                    additionalText={step === RemainingSetupItem.VerifyBusiness && !kybState ? '• Takes ~5m' : undefined}
+                    additionalText={step === RemainingSetupItem.VerifyBusiness && !kybState ? '• Takes ~5m': undefined}
                     className={twMerge('py-5', i > 0 && 'border-t border-slate-200')}
                     completed={isStepCompleted(step)}
                     icon={getItemImage(step)}
