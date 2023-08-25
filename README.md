@@ -1,4 +1,4 @@
-# **Stream**Payments App
+# **Stream**Payments - E-Commerce App
 
 Shopify <> StreamPay™ integration (Powered by Solana)
 
