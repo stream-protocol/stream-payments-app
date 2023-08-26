@@ -53,7 +53,7 @@ export const merchantData = Sentry.AWSLambda.wrapHandler(
                 try {
                     merchant = await contingentlyHandleAppConfigure(merchant, axios, prisma);
                 } catch {
-                    // It's possible for this to throw but we should capture and log alll errors underneath this
+                    // It's possible for this to throw but we should capture and log all errors underneath this
                     // It's better if we just return the merchant data here and handle the issue elsewhere
                 }
             }
@@ -85,6 +85,9 @@ export const merchantData = Sentry.AWSLambda.wrapHandler(
         }
     },
     {
+        rethrowAfterCapture: false,
+    }
+);
         rethrowAfterCapture: false,
     }
 );
