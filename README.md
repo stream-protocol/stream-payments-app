@@ -2,19 +2,21 @@
 
 Shopify <> StreamPay™ integration (Powered by Solana)
 
+StreamPay™ stands as a pioneering payment solution meticulously designed to elevate the payment experience for both merchants and customers. By seamlessly integrating with the Solana blockchain, StreamPay™ offers an array of features and benefits that propel online transactions into a new era of efficiency, security, and ease.
+
 <p align="center"><img src="apps/docs/docs/assets/streampay_ecommerce.jpeg" alt="StreamPay_E-Commerce"/></p>
 
 <p align="center">
     <b>
-        <a href="https://commercedocs.streampayments.app">documentation</a>
+        <a href="https://streamprotocol.gitbook.io/streampayments-app-x-commerce-platforms/">Documentation</a>
     </b>
     &nbsp;|&nbsp;
     <b>
-        <a href="https://www.youtube.com/channel/UCAbEl-Jr7kx2JqjTjhpoT-Q">walkthroughs</a>
+        <a href="https://www.youtube.com/channel/UCAbEl-Jr7kx2JqjTjhpoT-Q">Walkthroughs</a>
     </b>
     &nbsp;|&nbsp;
     <b>
-        <a href="https://apps.shopify.com/stream-pay">installation</a>
+        <a href="https://apps.shopify.com/stream-pay">Installation</a>
     </b>
     &nbsp;|&nbsp;
     <b>
@@ -30,7 +32,7 @@ Transact on Shopify using **Stream**Pay™
 
 # Quickstart
 
-Pre Setup Dependencies:
+Setup Dependencies:
 
 -   [Docker Desktop](https://docs.docker.com/desktop/)
 -   [MySql](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/)
@@ -44,7 +46,7 @@ yarn setup:env
 ```
 
 In `apps/backend-serverless/.env.dev`, add a Keypair secret for a wallet with SOL to pay for gas
-In `apps/backend-serverless/.env.dev`, setup a [Helius API key](https://www.helius.dev)
+In `apps/backend-serverless/.env.dev`, set a [Helius API key](https://www.helius.dev)
 
 To run:
 
@@ -63,7 +65,7 @@ Use these links to test out the local development flow
 
 ** Note **
 
-These links redirect you to the frontend local deployments. We included sample development certificates in `backend-serverless` and `mock-shopify-serverless`, however, you might need to ignore browser errors. [Follow this guide](https://blog.simontimms.com/2021/10/12/serverless-offline-https/) to setup your own local dev certificates
+These links redirect you to the frontend local deployments. We included sample development certificates in `backend-serverless` and `mock-shopify-serverless`, however, you might need to ignore browser errors. [Follow this guide](https://blog.simontimms.com/2021/10/12/serverless-offline-https/) to set up your own local dev certificates
 
 For various helper scripts you might need while extending the code, in apps/backend-serverless, you can run
 
@@ -73,25 +75,25 @@ node --loader ts-node/esm scripts/nft-setup.ts
 
 ## Deploying
 
-We use the [Serverless Framework](https://www.serverless.com), follow their directions to setup your appropriate aws & serverless credentials.
+We use the [Serverless Framework](https://www.serverless.com) and follow their directions to set your appropriate AWS & serverless credentials.
 
-Ensure you setup the following dependencies in the respective `.env` files
+Ensure you set the following dependencies in the respective `.env` files
 
 -   Sentry for logging
 -   TRM for scanning for suspicious wallets
 -   Helius for Solana rpc
--   Helius for **Stream**Payments rpc (not developed yet)
+-   Helius for **Stream**Payments RPC (not developed yet)
 -   Coingecko for price data
 -   Persona for KYB
--   Planetscale (recommended) or any mysql database provider
+-   Planet scale (recommended) or any MySQL database provider
 -   AWS Lambda for Serverless deployment
 -   Vercel for frontend hosting
 
 In `apps/backend-serverless`, deploy with
 
 ```
-yarn deploy:production:purple
-yarn deploy:production:green
+yarn deploy:production: purple
+yarn deploy:production: green
 ```
 
 In `apps/transaction-request-serverless`, deploy with
