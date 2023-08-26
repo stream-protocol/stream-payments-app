@@ -1,4 +1,4 @@
-# **Stream**Payments x E-Commerce App
+# <p align="center">**Stream**Payments x E-Commerce App
 
 <p align="center">Shopify <> StreamPay™ integration (Powered by Solana)
 
