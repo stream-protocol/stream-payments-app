@@ -41,6 +41,7 @@ Installation:
 
 ```
 git clone https://github.com/stream-protocol/stream-payments-app
+
 yarn install
 yarn setup:env
 ```
