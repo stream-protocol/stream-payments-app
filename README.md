@@ -1,6 +1,6 @@
-# <p align="center">**Stream**Payments - E-Commerce App
+# **Stream**Payments x E-Commerce App
 
-<p align="center">Shopify <> StreamPay™ integration (Powered by Solana)
+Shopify <> StreamPay™ integration (Powered by Solana)
 
 <p align="center">Stream**Pay*™ stands as a pioneering payment solution meticulously designed to elevate the payment experience for both merchants and customers. By seamlessly integrating with the Solana blockchain, Stream**Pay**™ offers an array of features and benefits that propel online transactions into a new era of efficiency, security, and ease.
 
