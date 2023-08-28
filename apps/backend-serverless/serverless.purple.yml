@@ -11,7 +11,7 @@ provider:
         - http://localhost:3001
         - https://merchant.streampayments.app
         - https://merchant-staging.streampayments.app
-        - https://pay.streampayments.app
+        - https://pay.solanapay.com
         - https://pay-staging.streampayments.app
       allowedHeaders:
         - Content-Type
@@ -24,6 +24,13 @@ provider:
         - PATCH
         - DELETE
       allowCredentials: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+          Resource: 'arn:aws:s3:::${self:custom.gas-bucket-name}/${self:custom.gas-object-name}'
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   environment:
@@ -51,7 +58,7 @@ provider:
     WEBSOCKET_URL: ${self:custom.${self:provider.stage}.WebsocketUrl, self:resources.Outputs.WebsocketUrl.Value}
     SHOPIFY_SQS_URL: ${self:custom.${self:provider.stage}.ShopifyQueueUrl, self:resources.Outputs.ShopifyQueueUrl.Value}
     PROCESS_SQS_URL: ${self:custom.${self:provider.stage}.ProcessQueueUrl, self:resources.Outputs.ProcessQueueUrl.Value}
-    SP_INFO_SQS_URL: ${self:custom.${self:provider.stage}.SolanaPayInfoQueueUrl, self:resources.Outputs.SolanaPayInfoQueueUrl.Value}
+    SP_INFO_SQS_URL: ${self:custom.${self:provider.stage}.SolanaPayInfoQueueUrl, self:resources.Outputs.StreamPayInfoQueueUrl.Value}
     GAS_KEYPAIR_SECRET: ${env:GAS_KEYPAIR_SECRET}
     POINTS_SEED: ${env:POINTS_SEED}
     TREE_SEED: ${env:TREE_SEED}
@@ -159,6 +166,7 @@ functions:
         Resource: ${self:resources.Outputs.ShopifyQueueArn.Value}
   refund-transaction:
     handler: src/handlers/transactions/refund-transaction.refundTransaction
+    timeout: 60 # Increase the timeout to 60 seconds
     events:
       - httpApi:
           path: /refund-transaction
@@ -227,6 +235,11 @@ functions:
       - httpApi:
           path: /payment-status
           method: get
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - s3:GetObject
+        Resource: 'arn:aws:s3:::${self:custom.gas-bucket-name}/${self:custom.gas-object-name}'
   customer-data:
     handler: src/handlers/clients/payment-ui/customer-data.customerData
     events:
@@ -250,6 +263,10 @@ functions:
         Action:
           - sqs:SendMessage
         Resource: ${self:resources.Outputs.ShopifyQueueArn.Value}
+      - Effect: Allow
+        Action:
+          - s3:GetObject
+        Resource: 'arn:aws:s3:::${self:custom.gas-bucket-name}/${self:custom.gas-object-name}'
   refund-data:
     handler: src/handlers/clients/merchant-ui/read-data/refund-data.refundData
     events:
@@ -340,7 +357,7 @@ functions:
           - s3:GetObject
         Resource: 'arn:aws:s3:::${self:custom.gas-bucket-name}/${self:custom.gas-object-name}'
   sp-info-message:
-    handler: src/handlers/webhooks/sqs/solana-pay-info-message.solanaPayInfoMessage
+    handler: src/handlers/webhooks/sqs/stream-pay-info-message.streamPayInfoMessage
     events:
       - sqs:
           arn: ${self:resources.Outputs.SolanaPayInfoQueueArn.Value}
@@ -349,7 +366,7 @@ functions:
       - Effect: Allow
         Action:
           - sqs:ReceiveMessage
-        Resource: ${self:resources.Outputs.SolanaPayInfoQueueArn.Value}
+        Resource: ${self:resources.Outputs.StreamPayInfoQueueArn.Value}
       - Effect: Allow
         Action:
           - execute-api:ManageConnections
@@ -480,11 +497,11 @@ resources:
     #   Value:
     #     Fn::GetAtt: [GasBucket, Arn]
     # SingleUseKeyPairBucketArn:
-    #   Description: The arn of the single use key pair bucket
+    #   Description: The arn of the single-use key pair bucket
     #   Value:
     #     Fn::GetAtt: [SingleUseKeyPairBucket, Arn]
     ShopifyQueueArn:
-      Description: The arn of the shopify sqs queue
+      Description: The arn of the Shopify sqs queue
       Value:
         Fn::GetAtt: [ShopifyQueue, Arn]
     ShopifyQueueUrl:
@@ -504,7 +521,7 @@ resources:
       Value:
         Fn::GetAtt: [SolanaPayInfoQueue, Arn]
     SolanaPayInfoQueueUrl:
-      Description: The url of the StreamPay™ info sqs queue
+      Description: The url of the solana pay info sqs queue
       Value:
         Ref: SolanaPayInfoQueue
     WebSocketApiId:
