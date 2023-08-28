@@ -53,7 +53,7 @@ export const checkouts = Sentry.AWSLambda.wrapHandler(
             await checkoutService.createOrUpdateCheckout(checkoutToken, productIds);
 
             Sentry.captureEvent({
-                message: 'finsihed chekcout data',
+                message: 'finished chekcout data',
                 level: 'info',
             });
             return {
@@ -61,7 +61,10 @@ export const checkouts = Sentry.AWSLambda.wrapHandler(
                 body: JSON.stringify({}),
             };
         } catch (error) {
-            return createErrorResponse(error);
+            return {
+                statusCode: 200,
+                body: JSON.stringify({}),
+            };
         }
     },
     {
