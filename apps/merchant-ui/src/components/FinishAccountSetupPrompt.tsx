@@ -37,7 +37,7 @@ function getItemTitle(item: RemainingSetupItem) {
         case RemainingSetupItem.AddWallet:
             return 'Add a wallet';
         case RemainingSetupItem.VerifyBusiness:
-            return 'Verify your business;
+            return 'Verify your business';
     }
 }
 
@@ -146,9 +146,13 @@ export function FinishAccountSetupPrompt(props: Props) {
     return (
         <div className={twMerge('bg-slate-50', 'pt-6', 'px-4', props.className)}>
             <div className="text-black font-semibold text-lg">Finish setting up your account:</div>
+            <p className="text-black font-normal text-md pt-2">
+                We are experiencing issues with KYB. <br />
+                Please submit your information, and we will get back to you in 2-3 business days
+            </p>
             {STEPS.map((step, i) => (
                 <FinishAccountSetupPromptListItem
-                    additionalText={step === RemainingSetupItem.VerifyBusiness && !kybState ? '• Takes ~5m': undefined}
+                    additionalText={step === RemainingSetupItem.VerifyBusiness && !kybState ? '• Takes ~5m' : undefined}
                     className={twMerge('py-5', i > 0 && 'border-t border-slate-200')}
                     completed={isStepCompleted(step)}
                     icon={getItemImage(step)}
