@@ -1,48 +1,44 @@
-import { DefaultLayout } from '@/components/DefaultLayout';
-import { DefaultLayoutContent } from '@/components/DefaultLayoutContent';
-import { DefaultLayoutScreenTitle } from '@/components/DefaultLayoutScreenTitle';
-import { FinishAccountSetupPrompt } from '@/components/FinishAccountSetupPrompt';
-import { LoadingDots } from '@/components/LoadingDots';
-import Merchant404 from '@/components/Merchant404';
-import { isFailed, isOk, isPending } from '@/lib/Result';
-import { useMerchantStore } from '@/stores/merchantStore';
+import { Welcome } from '@/components/Welcome';
+import { WelcomeHero } from '@/components/WelcomeHero';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import Router from 'next/router';
-interface Props {
-    className?: string;
-}
+import { twMerge } from 'tailwind-merge';
 
-export default function GetStartedPage(props: Props) {
-    const merchantInfo = useMerchantStore(state => state.merchantInfo);
-    if (isFailed(merchantInfo)) {
-        return <Merchant404 />;
-    }
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const { query } = context;
 
-    if (isPending(merchantInfo)) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <LoadingDots />
-            </div>
-        );
-    }
+    return {
+        props: query,
+    };
+};
 
-    if (isOk(merchantInfo) && merchantInfo.data.completed) {
-        Router.push('/merchant');
-    }
+export type BlockedProps = {
+    isBlocked: string;
+    isLoggedIn: string;
+    country: string;
+};
 
+export default function Home({ isBlocked, isLoggedIn, country }: BlockedProps) {
     return (
         <>
             <Head>
-                <title>StreamPay - Get Started</title>
-                <meta name="description" content="Get Started" />
+                <title>StreamPay Merchant Portal</title>
+                <meta
+                    name="description"
+                    content="Manage your Shopify Store Web3 Payments and Refunds with StreamPay."
+                />
             </Head>
-            <div className="h-screen w-screen">
-                <DefaultLayout className="h-full w-full">
-                    <DefaultLayoutContent className={props.className}>
-                        <DefaultLayoutScreenTitle>Welcome, {merchantInfo.data.name}!</DefaultLayoutScreenTitle>
-                        <FinishAccountSetupPrompt className="mt-6 rounded-xl" />
-                    </DefaultLayoutContent>
-                </DefaultLayout>
+            <div className={twMerge('grid', 'h-screen', 'w-screen', 'md:grid-cols-2')}>
+                <div className="flex flex-col justify-center items-center px-6 md:px-24">
+                    <Welcome
+                        className="pt-14 md:pt-0 md:mb-56 w-full max-w-md"
+                        isBlocked={isBlocked}
+                        isLoggedIn={isLoggedIn}
+                    />
+                </div>
+                <div className={twMerge('relative', 'h-full')}>
+                    <WelcomeHero className={twMerge('absolute', 'inset-0', 'w-full', 'h-full', 'object-cover')} />
+                </div>
             </div>
         </>
     );
