@@ -23,7 +23,7 @@ Sentry.AWSLambda.init({
 export const paymentStatus = Sentry.AWSLambda.wrapHandler(
     async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
         Sentry.captureEvent({
-            message: 'in payment-status',
+            message: 'in payment status,
             level: 'info',
         });
 
