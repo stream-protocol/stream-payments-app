@@ -4,9 +4,9 @@ import { APIGatewayProxyResultV2, SQSEvent } from 'aws-lambda';
 import { USDC_MINT } from '../../../configs/tokens.config.js';
 import { MissingEnvError } from '../../../errors/missing-env.error.js';
 import {
-    SolanaPayInfoMessage,
-    parseAndValidateSolanaPayInfoMessage,
-} from '../../../models/sqs/solana-pay-info-message.model.js';
+    StreamPayInfoMessage,
+    parseAndValidateStreamPayInfoMessage,
+} from '../../../models/sqs/stream-pay-info-message.model.js';
 import { PaymentRecordService } from '../../../services/database/payment-record-service.database.service.js';
 import { WebsocketSessionService } from '../../../services/database/websocket.database.service.js';
 import { fetchBalance } from '../../../services/helius.service.js';
@@ -21,10 +21,10 @@ Sentry.AWSLambda.init({
     integrations: [new Sentry.Integrations.Prisma({ client: prisma })],
 });
 
-export const solanaPayInfoMessage = Sentry.AWSLambda.wrapHandler(
+export const streamPayInfoMessage = Sentry.AWSLambda.wrapHandler(
     async (event: SQSEvent): Promise<APIGatewayProxyResultV2> => {
         Sentry.captureEvent({
-            message: 'in solana-pay-info-message',
+            message: 'in stream-pay-info-message',
             level: 'info',
         });
         const websocketUrl = process.env.WEBSOCKET_URL;
@@ -36,15 +36,15 @@ export const solanaPayInfoMessage = Sentry.AWSLambda.wrapHandler(
         const websocketSessionService = new WebsocketSessionService(prisma);
 
         for (const record of event.Records) {
-            const solanaPayInfoMessageBody = JSON.parse(record.body);
+            const streamPayInfoMessageBody = JSON.parse(record.body);
 
-            let solanaPayInfoMessage: SolanaPayInfoMessage;
+            let streamPayInfoMessage: StreamPayInfoMessage;
 
             try {
-                solanaPayInfoMessage = parseAndValidateSolanaPayInfoMessage(solanaPayInfoMessageBody);
+                streamPayInfoMessage = parseAndValidateSolanaPayInfoMessage(streanPayInfoMessageBody);
             } catch (error) {
                 Sentry.captureException(error);
-                // How can we make this single one retry? We can set the batch to 0 so this doesnt happen for now.
+                // How can we make this single one retry? We can set the batch to 0 so this doesn't happen for now.
                 continue;
             }
 
