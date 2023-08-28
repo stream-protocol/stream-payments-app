@@ -88,6 +88,3 @@ export const merchantData = Sentry.AWSLambda.wrapHandler(
         rethrowAfterCapture: false,
     }
 );
-        rethrowAfterCapture: false,
-    }
-);
