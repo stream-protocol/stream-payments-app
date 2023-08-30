@@ -19,43 +19,24 @@
     </b>
     &nbsp;|&nbsp;
     <b>
-        <a href="https://streampaytest1.myshopify.com/">live store</a>
+        <a href="https://streampaytest1.myshopify.com/">Live store</a>
     </b>
     &nbsp;|&nbsp;
     <b>
-        <a href="https://merchant.streampayments.app">merchant login</a>
+        <a href="https://merchant.streampayments.app">Merchant login</a>
     </b>
 </p>
 
-# Quickstart
+## Quickstart
 
 Transact on Shopify using Stream**Pay**™
 
-Setup Dependencies:
+### Setup Dependencies:
 
 -   [Docker Desktop](https://docs.docker.com/desktop/)
 -   [MySql](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/)
 
-Installation:
-
-```
-git clone https://github.com/stream-protocol/stream-payments-app
-
-yarn install
-yarn setup:env
-```
-
-In `apps/backend-serverless/.env.dev`, add a Keypair secret for a wallet with SOL to pay for gas
-In `apps/backend-serverless/.env.dev`, set a [Helius API key](https://www.helius.dev)
-
-To run:
-
-```
-yarn dev
-yarn seed
-```
-
-## Testing
+######### Testing
 
 Use these links to test out the local development flow
 
@@ -63,7 +44,7 @@ Use these links to test out the local development flow
 
 [Local Payment Simulation](https://localhost:4004/payment)
 
-** Note **
+**Note**
 
 These links redirect you to the frontend local deployments. We included sample development certificates in `backend-serverless` and `mock-shopify-serverless`, however, you might need to ignore browser errors. [Follow this guide](https://blog.simontimms.com/2021/10/12/serverless-offline-https/) to set up your own local dev certificates
 
@@ -73,7 +54,7 @@ For various helper scripts you might need while extending the code, in apps/back
 node --loader ts-node/esm scripts/nft-setup.ts
 ```
 
-## Deploying
+### Deploying
 
 We use the [Serverless Framework](https://www.serverless.com) and follow their directions to set your appropriate AWS & serverless credentials.
 
