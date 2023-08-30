@@ -1,6 +1,6 @@
 <p align="center"><img src="https://i.imgur.com/1QaZDxm.png" alt="StreamPay_E-Commerce"
 
-# <p align="center">**Stream**Payments e-Commerce App
+# <p align="center">**E-Commerce Platform
 
 <p align="center">Shopify <> StreamPay™ integration (Powered by Solana)
 
