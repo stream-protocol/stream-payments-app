@@ -1,4 +1,4 @@
-<p align="center"><img src="apps/docs/docs/assets/streampay_ecommerce.jpeg" alt="StreamPay_E-Commerce"
+<p align="center"><img src="https://i.imgur.com/1QaZDxm.png" alt="StreamPay_E-Commerce"
 
 # <p align="center">**Stream**Payments e-Commerce App
 
