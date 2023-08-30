@@ -36,7 +36,7 @@ Transact on Shopify using Stream**Pay**™
 -   [Docker Desktop](https://docs.docker.com/desktop/)
 -   [MySql](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/)
 
-######### Testing
+### Testing
 
 Use these links to test out the local development flow
 
