@@ -26,7 +26,7 @@ export const getKybState = async (inquiryId: string): Promise<KybState> => {
     try {
         status = resp.data.attributes.status;
     } catch (error) {
-        throw new DependencyError('persona couldnt find status');
+        throw new DependencyError('persona couldn't find status');
     }
 
     if (status === 'approved') {
