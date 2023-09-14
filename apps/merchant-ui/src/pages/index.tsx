@@ -25,7 +25,7 @@ export default function Home({ isBlocked, isLoggedIn, country }: BlockedProps) {
                 <title>StreamPay Merchant Portal</title>
                 <meta
                     name="description"
-                    content="Manage your Shopify Store Web3 Payments and Refunds with StreamPay."
+                    content="Manage your Shopify Store Payments and Refunds with StreamPay."
                 />
             </Head>
             <div className={twMerge('grid', 'h-screen', 'w-screen', 'md:grid-cols-2')}>
