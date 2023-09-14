@@ -11,11 +11,6 @@ Sentry.AWSLambda.init({
 
 export const sqsMessageReceive = Sentry.AWSLambda.wrapHandler(
     async (event: SQSEvent): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in sqs message receive',
-            level: 'info',
-        });
-        // Theses queues are set t
         for (const record of event.Records) {
             const attributes = record.messageAttributes;
 
@@ -36,7 +31,7 @@ export const sqsMessageReceive = Sentry.AWSLambda.wrapHandler(
                 try {
                     await startExecutionOfShopifyMutationRetry(record.body);
                 } catch (error) {
-                    return createErrorResponse(new Error('Could not execute shopify mutation retry step function'));
+                    return createErrorResponse(new Error('Could not execute Shopify mutation retry step function'));
                 }
             } else {
                 return createErrorResponse(new InvalidInputError('Unknown Message Type' + messageType));
@@ -51,6 +46,9 @@ export const sqsMessageReceive = Sentry.AWSLambda.wrapHandler(
         };
     },
     {
+        rethrowAfterCapture: false,
+    }
+);
         rethrowAfterCapture: false,
     },
 );
