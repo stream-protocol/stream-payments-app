@@ -26,13 +26,6 @@ Sentry.AWSLambda.init({
 
 export const redirect = Sentry.AWSLambda.wrapHandler(
     async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in redirect',
-            level: 'info',
-            extra: {
-                event,
-            },
-        });
         const merchantService = new MerchantService(prisma);
 
         const redirectUrl = process.env.MERCHANT_UI_URL;
@@ -109,12 +102,12 @@ export const redirect = Sentry.AWSLambda.wrapHandler(
                 });
             } catch (error) {
                 Sentry.captureException(error);
-                // TODO: Add to retry queue or add more places that this happens like we do for the app configure and persona
+                // TODO: Add to retry queue or add more places where this happens as we do for the app configuration and persona
             }
             try {
                 await contingentlyHandleAppConfigure(merchant, axios, prisma);
             } catch {
-                // We should give the merchant other opportunties for app configure to run so moving on is okay here
+                // We should give the merchant other opportunities for app configuration to run so moving on is okay here
                 // We also log all the errors underneath so no need here
             }
 
