@@ -9,7 +9,7 @@ export const safetyKeyUploaded = Sentry.AWSLambda.wrapHandler(
             try {
                 await startExecutionOfSafetySweep(record.s3.object.key);
             } catch (error) {
-                return createErrorResponse(new Error('Could not execute the shopify mutation step function'));
+                return createErrorResponse(new Error('Could not execute the Shopify mutation step function'));
             }
         }
 
