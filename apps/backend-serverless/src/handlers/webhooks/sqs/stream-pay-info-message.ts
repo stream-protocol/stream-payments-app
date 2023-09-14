@@ -5,8 +5,8 @@ import { USDC_MINT } from '../../../configs/tokens.config.js';
 import { MissingEnvError } from '../../../errors/missing-env.error.js';
 import {
     StreamPayInfoMessage,
-    parseAndValidateStreamPayInfoMessage,
-} from '../../../models/sqs/stream-pay-info-message.model.js';
+    parseAndValidateSolanaPayInfoMessage,
+} from '../../../models/sqs/solana-pay-info-message.model.js';
 import { PaymentRecordService } from '../../../services/database/payment-record-service.database.service.js';
 import { WebsocketSessionService } from '../../../services/database/websocket.database.service.js';
 import { fetchBalance } from '../../../services/helius.service.js';
@@ -23,10 +23,6 @@ Sentry.AWSLambda.init({
 
 export const streamPayInfoMessage = Sentry.AWSLambda.wrapHandler(
     async (event: SQSEvent): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in stream-pay-info-message',
-            level: 'info',
-        });
         const websocketUrl = process.env.WEBSOCKET_URL;
         if (websocketUrl == null) {
             return createErrorResponse(new MissingEnvError('websocket url'));
@@ -41,7 +37,7 @@ export const streamPayInfoMessage = Sentry.AWSLambda.wrapHandler(
             let streamPayInfoMessage: StreamPayInfoMessage;
 
             try {
-                streamPayInfoMessage = parseAndValidateSolanaPayInfoMessage(streanPayInfoMessageBody);
+                streamPayInfoMessage = parseAndValidateSolanaPayInfoMessage(solanaPayInfoMessageBody);
             } catch (error) {
                 Sentry.captureException(error);
                 // How can we make this single one retry? We can set the batch to 0 so this doesn't happen for now.
@@ -62,7 +58,7 @@ export const streamPayInfoMessage = Sentry.AWSLambda.wrapHandler(
                 paymentRecord = await paymentRecordService.getPaymentRecord({
                     id: solanaPayInfoMessage.paymentRecordId,
                 });
-                // we dont actually have a payment record but we dont want to retry by throwing error
+                //We don't actually have a payment record but we do not want to retry by throwing an error
             } catch {
                 return {
                     statusCode: 200,
@@ -73,7 +69,7 @@ export const streamPayInfoMessage = Sentry.AWSLambda.wrapHandler(
             }
 
             try {
-                const usdcSize = await fetchBalance(solanaPayInfoMessage.account, USDC_MINT.toBase58());
+                const usdcSize = await fetchBalance(streamPayInfoMessage.account, USDC_MINT.toBase58());
                 if (paymentRecord.usdcAmount > usdcSize) {
                     await websocketService.sendInsufficientFundsMessage();
                 }
