@@ -17,7 +17,7 @@ import { twMerge } from 'tailwind-merge';
 import { DefaultLayoutNavigationExternalLink } from './DefaultLayoutNavigationExternalLink';
 import { DefaultLayoutNavigationLink } from './DefaultLayoutNavigationLink';
 import { RefundCount } from './RefundCount';
-import { SolanaPayMark } from './SolanaPayMark';
+import { StreamPayMark } from './StreamPayMark';
 import { Flag } from './icons/Flag';
 import { Folder } from './icons/Folder';
 import { ReceiptLong } from './icons/ReceiptLong';
