@@ -27,10 +27,6 @@ Sentry.AWSLambda.init({
 
 export const retry = Sentry.AWSLambda.wrapHandler(
     async (event: unknown): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in retry',
-            level: 'info',
-        });
         let shopifyMutationRetry: ShopifyMutationRetry;
 
         try {
@@ -65,7 +61,7 @@ export const retry = Sentry.AWSLambda.wrapHandler(
         } catch (error) {
             // add it back to the queue, then thing is though, it depends on what kind of error it is.
             // no merchant might not go back on the queue, that might require manual intervention
-            // if its a shopify error, then it should go back on the queue
+            // If it is a Shopify error, then it should go back on the queue
             const nextStep = shopifyMutationRetry.retryStepIndex + 1;
             if (exhaustedRetrySteps(nextStep)) {
                 // Ok so I think what I'm going to do here is just add a new payment or refund
@@ -86,7 +82,7 @@ export const retry = Sentry.AWSLambda.wrapHandler(
                     shopifyMutationRetry.refundResolve,
                     shopifyMutationRetry.refundReject,
                     shopifyMutationRetry.appConfigure,
-                    nextStep,
+                    nextStep
                 );
             } catch (error) {
                 return createErrorResponse(error);
@@ -100,5 +96,5 @@ export const retry = Sentry.AWSLambda.wrapHandler(
     },
     {
         rethrowAfterCapture: false,
-    },
+    }
 );
