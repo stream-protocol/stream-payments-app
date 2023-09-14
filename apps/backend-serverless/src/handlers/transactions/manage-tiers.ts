@@ -26,11 +26,6 @@ Sentry.AWSLambda.init({
 
 export const tiersSetupTransaction = Sentry.AWSLambda.wrapHandler(
     async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in tiers setup transaction',
-            level: 'info',
-        });
-
         if (event.body == null) {
             return createErrorResponse(new InvalidInputError('missing body in request'));
         }
@@ -61,7 +56,7 @@ export const tiersSetupTransaction = Sentry.AWSLambda.wrapHandler(
                 transaction = result.base;
                 mintAddress = result.mintAddress;
             } else {
-                // update existing tier
+                // Update existing tier
                 let tier = await merchantService.getTier(id);
                 transaction = await fetchUpdateTiersTransaction(
                     gasKeypair,
