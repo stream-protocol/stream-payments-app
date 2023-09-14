@@ -21,14 +21,6 @@ Sentry.AWSLambda.init({
 
 export const refund = Sentry.AWSLambda.wrapHandler(
     async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'In refund',
-            level: 'info',
-            extra: {
-                event,
-            },
-        });
-
         const prisma = new PrismaClient();
         const refundRecordService = new RefundRecordService(prisma);
         const merchantService = new MerchantService(prisma);
@@ -77,7 +69,7 @@ export const refund = Sentry.AWSLambda.wrapHandler(
                 }
             }
 
-            // We return 201 status code here per Shopify's documentation:: https://shopify.dev/docs/apps/payments/implementation/process-a-refund#initiate-the-flow
+            // We return the 201 status code here per Shopify's documentation:: https://shopify.dev/docs/apps/payments/implementation/process-a-refund#initiate-the-flow
             return {
                 statusCode: 201,
                 body: JSON.stringify({}),
