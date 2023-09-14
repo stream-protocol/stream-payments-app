@@ -22,10 +22,6 @@ Sentry.AWSLambda.init({
 
 export const processTransactionMessage = Sentry.AWSLambda.wrapHandler(
     async (event: SQSEvent): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in process-transaction-message',
-            level: 'info',
-        });
         const websocketUrl = process.env.WEBSOCKET_URL;
 
         const paymentRecordService = new PaymentRecordService(prisma);
@@ -36,7 +32,7 @@ export const processTransactionMessage = Sentry.AWSLambda.wrapHandler(
 
         const failedProcessingRecords: ProcessTransactionMessage[] = [];
 
-        // We have this configured for a batch of one, we look just in case but this should only return once
+        // We have this configured for a batch of one, We look just in case but this should only return once
         for (const record of event.Records) {
             const processTransactionMessageBody = JSON.parse(record.body);
 
@@ -47,7 +43,7 @@ export const processTransactionMessage = Sentry.AWSLambda.wrapHandler(
             } catch (error) {
                 Sentry.captureException(error);
                 failedProcessingRecords.push(processTransactionMessageBody);
-                // How can we make this single one retry? We can set the batch to 0 so this doesnt happen for now.
+                // How can we make this single one retry? We can set the batch to 0 so this doesn't happen for now.
                 continue;
             }
 
@@ -56,7 +52,7 @@ export const processTransactionMessage = Sentry.AWSLambda.wrapHandler(
                 {
                     signatures: [processTransactionMessage.signature],
                 },
-                paymentRecordService,
+                paymentRecordService
             );
 
             try {
@@ -76,5 +72,5 @@ export const processTransactionMessage = Sentry.AWSLambda.wrapHandler(
     },
     {
         rethrowAfterCapture: false,
-    },
+    }
 );
