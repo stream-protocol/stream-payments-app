@@ -22,11 +22,6 @@ Sentry.AWSLambda.init({
 
 export const helius = Sentry.AWSLambda.wrapHandler(
     async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in helius',
-            level: 'info',
-        });
-
         const requiredAuthorizationHeader = process.env.HELIUS_AUTHORIZATION;
         const websocketUrl = process.env.WEBSOCKET_URL;
 
@@ -73,7 +68,7 @@ export const helius = Sentry.AWSLambda.wrapHandler(
             }[] = [];
 
             for (const transactionRecord of transactionRecords) {
-                // send a message to the queue, even better if we can send an array of messages to the queue
+                // send a message to the queue, even better if we could send an array of messages to the queue
                 try {
                     await sendProcessTransactionMessage(transactionRecord.signature);
                 } catch (error) {
@@ -108,6 +103,9 @@ export const helius = Sentry.AWSLambda.wrapHandler(
         };
     },
     {
+        rethrowAfterCapture: false,
+    }
+);
         rethrowAfterCapture: false,
     }
 );
