@@ -18,13 +18,6 @@ Sentry.AWSLambda.init({
 
 export const connect = Sentry.AWSLambda.wrapHandler(
     async (event: APIGatewayProxyWebsocketEventV2): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'in websocket connect',
-            level: 'info',
-            extra: {
-                event,
-            },
-        });
         const websocketSessionService = new WebsocketSessionService(prisma);
         const paymentRecordService = new PaymentRecordService(prisma);
 
@@ -43,6 +36,9 @@ export const connect = Sentry.AWSLambda.wrapHandler(
         }
     },
     {
+        rethrowAfterCapture: false,
+    }
+);
         rethrowAfterCapture: false,
     },
 );
