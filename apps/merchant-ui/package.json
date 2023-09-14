@@ -21,12 +21,12 @@
         "@radix-ui/react-tabs": "^1.0.4",
         "@radix-ui/react-toast": "^1.1.4",
         "@radix-ui/react-tooltip": "^1.0.6",
-        "@solana-mobile/wallet-adapter-mobile": "^2.0.0",
-        "@solana/wallet-adapter-base": "^0.9.22",
-        "@solana/wallet-adapter-react": "^0.15.32",
-        "@solana/wallet-adapter-react-ui": "^0.9.31",
-        "@solana/wallet-adapter-wallets": "^0.19.16",
-        "@solana/web3.js": "^1.74.0",
+        "@solana-mobile/wallet-adapter-mobile": "^2.0.1",
+        "@solana/wallet-adapter-base": "^0.9.23",
+        "@solana/wallet-adapter-react": "^0.15.35",
+        "@solana/wallet-adapter-react-ui": "^0.9.34",
+        "@solana/wallet-adapter-wallets": "^0.19.22",
+        "@solana/web3.js": "^1.78.5",
         "@types/jsonwebtoken": "^9.0.1",
         "class-variance-authority": "^0.6.0",
         "clsx": "^1.2.1",
@@ -56,6 +56,6 @@
         "postcss": "^8.4.21",
         "tailwind-merge": "^1.13.1",
         "tailwindcss": "^3.2.7",
-        "typescript": "^5.0.3"
+        "typescript": "^5.2.2"
     }
 }
