@@ -427,7 +427,7 @@ export function OpenRefunds(props: Props) {
                                                         Deny Refund
                                                     </div>
                                                     <div className="text-slate-800">
-                                                        Are you sure? You can’t undo this action afterwards.
+                                                        Are you sure? You can’t undo this action afterward.
                                                     </div>
 
                                                     <Input
