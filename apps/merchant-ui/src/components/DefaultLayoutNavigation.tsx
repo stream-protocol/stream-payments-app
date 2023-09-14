@@ -80,7 +80,7 @@ export function DefaultLayoutNavigation(props: Props) {
                 <NavigationMenu.Item>
                     <NavigationMenu.Link asChild>
                         <Link href="/" className="flex flex-row space-x-2">
-                            <SolanaPayMark className="h-7" />
+                            <StreamPayMark className="h-7" />
                             <EnvLabel />
                         </Link>
                     </NavigationMenu.Link>
@@ -144,7 +144,7 @@ export function DefaultLayoutNavigation(props: Props) {
                     text="Privacy Policy"
                 />
                 <DefaultLayoutNavigationExternalLink
-                    href="https://shopifydocs.streampayments.app"
+                    href="https://docs.streampayments.app"
                     icon={<Folder />}
                     text="Documentation"
                 />
