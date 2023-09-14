@@ -60,14 +60,6 @@ Sentry.AWSLambda.init({
 
 export const paymentTransaction = Sentry.AWSLambda.wrapHandler(
     async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
-        Sentry.captureEvent({
-            message: 'In payment transaction handler',
-            level: 'info',
-            extra: {
-                event,
-            },
-        });
-
         const transactionRecordService = new TransactionRecordService(prisma);
         const paymentRecordService = new PaymentRecordService(prisma);
         const merchantService = new MerchantService(prisma);
@@ -158,8 +150,8 @@ export const paymentTransaction = Sentry.AWSLambda.wrapHandler(
                         });
                     } catch (error) {
                         // CRITICAL: Add to database failure queue
-                        // We will log this error underneath so no need to do this here, shopify already knows what is good and big
-                        // We don't want to throw though becuase throwing would make us retry with shopify and im not sure thats how we want to handle this
+                        // We will log this error underneath so no need to do this here, Shopify already knows what is good and big
+                        // We don't want to throw though because throwing would make us retry with Shopify and I'm not sure that's how we want to handle this
                     }
                 } catch (error) {
                     try {
@@ -254,8 +246,8 @@ export const paymentMetadata = async (event: APIGatewayProxyEventV2): Promise<AP
     return {
         statusCode: 200,
         body: JSON.stringify({
-            label: 'Solana Payment App',
-            icon: 'https://s2.coinmarketcap.com/static/img/coins/200x200/5426.png', // TODO: Update this image to something we host on AWS
+            label: 'StreamPayments App',
+            icon: 'https://i.imgur.com/vWmZ8tg.png', 
         }),
     };
 };
