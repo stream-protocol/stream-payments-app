@@ -21,15 +21,15 @@ export function WalletAddressSuggestion(props: Props) {
                     <br />•{' '}
                     <a
                         className="font-semibold text-indigo-700"
-                        href="https://commercedocs.solanapay.com/merchants/wallets/coinbase"
+                        href="https://docs.streampayments.app/merchants/wallets/coinbase"
                     >
-                        A Coinbase Solana USDC address
+                        A Coinbase StreamPay USDC address
                     </a>
                     <br />• A USDC account address
                 </div>
                 <a
                     className="font-semibold text-indigo-700"
-                    href="https://commercedocs.solanapay.com/merchants/onboarding"
+                    href="https://docs.streampayments.app/merchants/onboarding"
                 >
                     More Details
                 </a>
