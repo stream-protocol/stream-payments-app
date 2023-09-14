@@ -11,12 +11,12 @@ interface Props {
 export function Welcome(props: Props) {
     return (
         <article className={props.className}>
-            <StreamPayMark className="h-8 md:h-14 mb-10 md:mb-14" />
+            <SolanaPayMark className="h-8 md:h-14 mb-10 md:mb-14" />
             <h1 className="text-black font-semibold text-2xl md:text-3xl mt-6">
                 Welcome to the StreamPay Merchant Portal
             </h1>
             <p className="mt-3 text-neutral-600">
-                StreamPay makes it easy for you to accept Solana and USDC payments on your Shopify site.
+                StreamPay makes it easy for you to accept Solana and USDC payments on your online store.
             </p>
             {props.isLoggedIn === 'false' && (
                 <div className="border border-orange-500 bg-orange-50 text-orange-800 rounded-lg p-4 flex flex-row items-center space-x-2 mt-10">
