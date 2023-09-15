@@ -21,9 +21,9 @@
     },
     "dependencies": {
         "@metaplex-foundation/js": "^0.19.4",
-        "@prisma/client": "^4.13.0",
+        "@prisma/client": "^5.3.0",
         "@project-serum/anchor": "^0.26.0",
-        "@shopify/app": "^3.49.5",
+        "@shopify/app": "^3.49.3",
         "@shopify/cli": "^3.49.3",
         "@solana/web3.js": "^1.78.5",
         "concurrently": "^8.2.0",
