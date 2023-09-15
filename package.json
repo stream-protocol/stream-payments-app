@@ -16,23 +16,23 @@
         "lint": "turbo run lint",
         "lint:fix": "turbo run lint:fix",
         "setup:env": "node scripts/env-setup.js",
-        "seed": "yarn --cwd apps/backend-serverless prisma:push:dev && yarn --cwd apps/backend-serverless prisma:seed:dev",
+        "seed": "yarn --cwd apps/backend-serverless prisma:generate && yarn --cwd apps/backend-serverless prisma:push:dev && yarn --cwd apps/backend-serverless prisma:seed:dev",
         "format": "prettier --write \"**/*.{ts,tsx,md,js,jsx,mdx}\""
     },
     "dependencies": {
         "@metaplex-foundation/js": "^0.19.4",
         "@prisma/client": "^4.13.0",
         "@project-serum/anchor": "^0.26.0",
-        "@shopify/app": "^3.47.5",
-        "@shopify/cli": "^3.47.5",
-        "@solana/web3.js": "^1.78.0",
+        "@shopify/app": "^3.49.5",
+        "@shopify/cli": "^3.49.3",
+        "@solana/web3.js": "^1.78.5",
         "concurrently": "^8.2.0",
-        "dotenv": "^16.0.3",
+        "dotenv": "^16.0.3",3
         "prisma": "^4.13.0",
         "typescript": "^5.0.3"
     },
     "devDependencies": {
-        "@solana/prettier-config-solana": "0.0.2",
+        "@solana/prettier-config-solana": "0.0.3",
         "@types/node": "^18.16.1",
         "eslint-config-custom": "*",
         "prettier": "2.8.7",
