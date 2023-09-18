@@ -1,10 +1,10 @@
 const config = {
-    title: 'Shopify <> StreamPay',
+    title: 'StreamPay x Shopify',
     tagline: 'Enable Solana powered Payments on Shopify',
     favicon: 'img/favicon.ico',
     url: 'https://shopifydocs.solanapay.com',
     baseUrl: '/',
-    organizationName: 'stream-protocol',
+    organizationName: 'Stream Protocol / StreamPayments',
     projectName: 'stream-payments-app',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -39,6 +39,11 @@ const config = {
                 {
                     href: 'https://github.com/stream-protocol/stream-payments-app',
                     label: 'GitHub',
+                    position: 'right',
+                },
+                {
+                    href: 'mailto:contact@streamprotocol.org',
+                    label: 'Support',
                     position: 'right',
                 },
             ],
